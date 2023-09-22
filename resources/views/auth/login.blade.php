@@ -10,7 +10,7 @@
               <div class="_main_head_as">
                 <a href=""><img src="assets-login/images/vector.png"></a>
               </div>
-              <h4 class="mt-2 text-white">Login Sistem Keuangan Pribadi</h4>
+              <h4 class="mt-2 text-white">Sistem Keuangan Pribadi</h4>
               <form action="{{ route('login') }}" method="post">
                 @csrf
               <div class="form-group">

@@ -28,7 +28,7 @@
   }
 
   .active-eye {
-    color: orange;
+    color: #5e15a1;
   }
 </style>
 {{--  --}}

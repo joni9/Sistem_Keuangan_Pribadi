@@ -73,15 +73,54 @@ textarea {
     overflow: auto;
 }
 
-.form-sub-main{
-    max-width:500px;
-    width:100%;
-    display:block;
-    margin:20px auto;
-    background:rgba(0,0,0,1);
+.form-sub-main {
+    max-width: 500px;
+    width: 100%;
+    display: block;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.95);
     padding: 10px 60px 46px;
-
+    position: relative;
+    overflow: hidden;
 }
+
+.form-sub-main::before,
+.form-sub-main::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, transparent, #5e15a1, transparent);
+    top: 0;
+    animation: moveLine 3s infinite;
+}
+
+.form-sub-main::after {
+    top: auto;
+    bottom: 0;
+    animation: moveLineReverse 3s infinite;
+}
+
+@keyframes moveLine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes moveLineReverse {
+    0% {
+        right: -100%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
+
+
  @media screen and (max-width:767px){
       .form-sub-main{
         padding: 30px;
@@ -92,15 +131,15 @@ textarea {
     min-height: 50px;
     -webkit-box-shadow: none;
     box-shadow: none;
-    border: 1px solid rgb(255, 249, 249);
+    border: 1px solid #5e15a1(255, 249, 249);
     padding: 10px 15px;
     background-color: transparent;
-    color: #fff;
+    color: #5e15a1;
     margin:30px 0px;
 }
 
 .form-sub-main{
-    color:#ffffff;
+    color:#5e15a1;
     font-size:16px;
     margin-top: 5%;
 }
@@ -125,8 +164,8 @@ textarea {
 .form-group .form-control:focus{
     background:transparent;
     box-shadow:none;
-    border-color:#ffffff;
-    color:#ffffff;
+    border-color:#5e15a1;
+    color:#5e15a1;
 }
 
 .check_box_main{
@@ -168,7 +207,7 @@ textarea {
 
 ._main_head_as a img{
   height:100px;
-  width:100px;
+  width:70;
   position:relative;
-  border-radius:30px;
+  scale: 1.5;
 }
