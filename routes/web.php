@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +22,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/', [KeuanganController::class, 'index'])->name('dashboard');
+    Route::get('/table-keuangan', [KeuanganController::class, 'table_keuangan'])->name('table_keuangan');
+
+    Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan');
+    Route::get('/table-pemasukan', [PemasukanController::class, 'table_pemasukan'])->name('table_pemasukan');
+
+    Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran');
+    Route::get('/table-pengeluaran', [PengeluaranController::class, 'table_pengeluaran'])->name('table_pengeluaran');
+
     // Route::get('/profilmahasiswa', [ProfilController::class, 'index'])->name('profilmahasiswa');
 });

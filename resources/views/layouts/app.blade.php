@@ -5,8 +5,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets-dashboard/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets-dashboard/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets-dashboard/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets-dashboard/img/favicon.png">
   <title>
     Sistem Keuangan Pribadi
   </title>
@@ -14,17 +14,21 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="../assets-dashboard/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets-dashboard/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="../assets-dashboard/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="assets-dashboard/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets-dashboard/demo/demo.css" rel="stylesheet" />
-  {{-- datatable local --}}
-<link href="assets/DataTables/datatables.min.css" rel="stylesheet">
-<link href="assets/DataTables/datatables.css" rel="stylesheet">
-<script src="assets/DataTables/datatables.js"></script>
+  <link href="assets-dashboard/demo/demo.css" rel="stylesheet" />
+
+  {{-- jquery --}}
+{{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> --}}
 <script src="assets/jquery-3.7.1.min.js"></script>
-<link href="assets/DataTables/Buttons-2.4.2/css/buttons.dataTables.min.css" type="text/css" rel="stylesheet">
+
+  {{-- datatable local --}}
+<link href="DataTables/datatables.min.css" rel="stylesheet">
+<link href="DataTables/datatables.css" rel="stylesheet">
+<script src="DataTables/datatables.js"></script>
+<link href="DataTables/Buttons-2.4.2/css/buttons.dataTables.min.css" type="text/css" rel="stylesheet">
 
 {{-- select2 --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
@@ -34,6 +38,16 @@
 <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
 " rel="stylesheet">
+
+
+
+{{-- datatble online --}}
+{{-- <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.css" rel="stylesheet">
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script> --}}
+
 </head>
 
 <body class="">
@@ -52,58 +66,22 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
           </a>
         </div>
         <ul class="nav">
-          <li class="active ">
-            <a href="./dashboard.html">
+          <li class="{{ request()->routeIs(['dashboard']) ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
-            <a href="./icons.html">
+          <li class="{{ request()->routeIs(['pemasukan']) ? 'active' : '' }}">
+            <a href="{{ route('pemasukan') }}">
               <i class="tim-icons icon-atom"></i>
-              <p>Icons</p>
+              <p>Pemasukan</p>
             </a>
           </li>
-          <li>
-            <a href="./map.html">
+          <li li class="{{ request()->routeIs(['pengeluaran']) ? 'active' : '' }}">
+            <a href="{{ route('pengeluaran') }}">
               <i class="tim-icons icon-pin"></i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li>
-            <a href="./notifications.html">
-              <i class="tim-icons icon-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li>
-            <a href="./user.html">
-              <i class="tim-icons icon-single-02"></i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li>
-            <a href="./tables.html">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>Table List</p>
-            </a>
-          </li>
-          <li>
-            <a href="./typography.html">
-              <i class="tim-icons icon-align-center"></i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li>
-            <a href="./rtl.html">
-              <i class="tim-icons icon-world"></i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="active-pro">
-            <a href="./upgrade.html">
-              <i class="tim-icons icon-spaceship"></i>
-              <p>Upgrade to PRO</p>
+              <p>Pengeluaran</p>
             </a>
           </li>
         </ul>
@@ -133,7 +111,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
-                    <img src="../assets-dashboard/img/anime3.png" alt="Profile Photo">
+                    <img src="assets-dashboard/img/anime3.png" alt="Profile Photo">
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
@@ -175,7 +153,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
 
       <footer class="footer">
         <div class="container-fluid">
-          <ul class="nav">
+          {{-- <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
                 Creative Tim
@@ -191,13 +169,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
                 Blog
               </a>
             </li>
-          </ul>
+          </ul> --}}
           <div class="copyright">
-            ©
-            <script>
-              document.write(new Date().getFullYear())
-            </script>2018 made with <i class="tim-icons icon-heart-2"></i> by
-            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+            ©2023 Develop <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Joni Evendi</a>
           </div>
         </div>
       </footer>
@@ -230,20 +205,18 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets-dashboard/js/core/jquery.min.js"></script>
-  <script src="../assets-dashboard/js/core/popper.min.js"></script>
-  <script src="../assets-dashboard/js/core/bootstrap.min.js"></script>
-  <script src="../assets-dashboard/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <script src="assets-dashboard/js/core/jquery.min.js"></script>
+  <script src="assets-dashboard/js/core/popper.min.js"></script>
+  <script src="assets-dashboard/js/core/bootstrap.min.js"></script>
+  <script src="assets-dashboard/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
   <!-- Chart JS -->
-  <script src="../assets-dashboard/js/plugins/chartjs.min.js"></script>
+  <script src="assets-dashboard/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets-dashboard/js/plugins/bootstrap-notify.js"></script>
+  <script src="assets-dashboard/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets-dashboard/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets-dashboard/demo/demo.js"></script>
+  <script src="assets-dashboard/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  {{-- <script src="assets-dashboard/demo/demo.js"></script> --}}
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -355,13 +328,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
       });
     });
   </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets-dashboard/js/demos.js
-      demo.initDashboardPageCharts();
-
-    });
-  </script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
     window.TrackJS &&
@@ -424,6 +390,13 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
 <script src="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.all.min.js
 "></script>
+
+{{-- dattable online --}}
+{{-- <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.css" rel="stylesheet">
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/datatables.min.js"></script> --}}
 </body>
 
 </html>
