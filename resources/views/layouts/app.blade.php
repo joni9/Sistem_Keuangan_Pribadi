@@ -29,7 +29,8 @@
 <link href="DataTables/datatables.css" rel="stylesheet">
 <script src="DataTables/datatables.js"></script>
 <link href="DataTables/Buttons-2.4.2/css/buttons.dataTables.min.css" type="text/css" rel="stylesheet">
-
+{{-- boostrap offline --}}
+<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 {{-- select2 --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 {{-- fancy box --}}

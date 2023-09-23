@@ -6,6 +6,7 @@ use App\Models\Keuangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class PemasukanController extends Controller
 {
@@ -33,5 +34,27 @@ class PemasukanController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+    public function create()
+    {
+        return view('admin.pemasukan.create');
+    }
+    public function store(request $request)
+    {
+        // Validasi inputan jika diperlukan
+        $request->validate([
+            'nominal' => 'required|numeric',
+            'keterangan' => 'string',
+        ]);
+
+        $data = [
+            'id' => Str::uuid(),
+            'name' => $request->input('name'),
+            'nominal' => $request->input('nominal'),
+            'keterangan' => $request->input('keterangan'),
+            'user_id' => auth()->id(),
+        ];
+
+        Keuangan::create($data);
     }
 }

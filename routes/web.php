@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan');
     Route::get('/table-pemasukan', [PemasukanController::class, 'table_pemasukan'])->name('table_pemasukan');
+    Route::get('/create-pemasukan', [PemasukanController::class, 'create'])->name('createpemasukan');
+    Route::post('/store-pemasukan', [PemasukanController::class, 'store'])->name('storepemasukan');
 
     Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran');
     Route::get('/table-pengeluaran', [PengeluaranController::class, 'table_pengeluaran'])->name('table_pengeluaran');
