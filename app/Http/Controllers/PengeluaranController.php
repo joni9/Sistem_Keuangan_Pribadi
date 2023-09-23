@@ -16,7 +16,8 @@ class PengeluaranController extends Controller
     }
     public function table_pengeluaran()
     {
-        $query = Keuangan::where('jenis', 'keluaran');
+        $user = Auth::user();
+        $query = Keuangan::with('user')->where('jenis', 'keluaran')->where('user_id', $user->id);
 
         return DataTables::of($query)
             ->addIndexColumn()

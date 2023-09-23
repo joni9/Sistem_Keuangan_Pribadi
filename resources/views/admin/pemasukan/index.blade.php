@@ -123,13 +123,67 @@ function store() {
             keterangan: keterangan,
         },
         success: function (data) {
+            Swal.fire({
+                title: 'Sukses',
+                text: 'Data berhasil ditambahkan',
+                icon: 'success',
+                showConfirmButton: false, // Menghilangkan tombol "OK"
+                timer: 1500 // Menampilkan pesan selama 2 detik
+            });
             $(".btn-close").click();
+            reloadTable('#table_pemasukan');
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
         }
     });
 }
+
+$(document).on('submit', '.form-delete', function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var url = form.attr('action');
+    var method = form.attr('method');
+
+    Swal.fire({
+        title: 'Konfirmasi',
+        text: 'Apakah Anda yakin ingin menghapus data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                method: method,
+                data: form.serialize(),
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sukses',
+                        text: 'Data berhasil dihapus',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    reloadTable('#table_pemasukan');
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    });
+});
+
+
+    //fungsi reload
+    function reloadTable(id) {
+        var table = $(id).DataTable();
+        table.cleanData;
+        table.ajax.reload();
+    }
 
 </script>
 @endsection

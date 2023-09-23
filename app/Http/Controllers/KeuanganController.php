@@ -16,7 +16,8 @@ class KeuanganController extends Controller
     }
     public function table_keuangan()
     {
-        $query = Keuangan::all();
+        $user = Auth::user();
+        $query = Keuangan::with('user')->where('user_id', $user->id);
 
         return DataTables::of($query)
             ->addIndexColumn()

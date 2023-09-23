@@ -17,7 +17,8 @@ class PemasukanController extends Controller
     }
     public function table_pemasukan()
     {
-        $query = Keuangan::where('jenis', 'pemasukan');
+        $user = Auth::user();
+        $query = Keuangan::with('user')->where('jenis', 'pemasukan')->where('user_id', $user->id);
 
         return DataTables::of($query)
             ->addIndexColumn()
@@ -29,8 +30,18 @@ class PemasukanController extends Controller
                 return '
                 <a class="btn btn-info" href="' . route('dashboard', $data->id) . '">
                     <i class="glyphicon glyphicon-edit icon-white"></i> 
-                    Pilih
-                </a>';
+                    Edit
+                </a>
+                
+                <form method="POST" action="' . route('deletepemasukan', $data->id) . '" style="display: inline;" class="form-delete">
+                    ' . csrf_field() . '
+                    ' . method_field('DELETE') . '
+                    <button type="submit" class="btn btn-danger delete-btn" data-id="' . $data->id . '">
+                        <i class="glyphicon glyphicon-trash icon-white"></i> 
+                        Hapus
+                    </button>
+                </form>
+                ';
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -56,5 +67,10 @@ class PemasukanController extends Controller
         ];
 
         Keuangan::create($data);
+    }
+    public function delete($id)
+    {
+        $data = Keuangan::findOrFail($id);
+        $data->delete();
     }
 }
