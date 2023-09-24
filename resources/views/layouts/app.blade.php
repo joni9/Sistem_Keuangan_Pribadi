@@ -60,30 +60,27 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
     -->
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-mini">
-            CT
-          </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
-            Creative Tim
+          <a href="javascript:void(0)" class="simple-text logo-normal text-center">
+            Joni Evendi
           </a>
         </div>
         <ul class="nav">
-          <li class="{{ request()->routeIs(['dashboard']) ? 'active' : '' }}">
+          <li class="{{ request()->routeIs(['dashboard']) ? 'active bg-info' : '' }}">
             <a href="{{ route('dashboard') }}">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="{{ request()->routeIs(['pemasukan']) ? 'active' : '' }}">
+          <li class="{{ request()->routeIs(['pemasukan']) ? 'active bg-success' : '' }}">
             <a href="{{ route('pemasukan') }}">
-              <i class="tim-icons icon-atom"></i>
-              <p>Pemasukan</p>
+              <i class="tim-icons icon-money-coins "></i>
+              <p class="">Pemasukan</p>
             </a>
           </li>
-          <li li class="{{ request()->routeIs(['pengeluaran']) ? 'active' : '' }}">
+          <li li class="{{ request()->routeIs(['pengeluaran']) ? 'active bg-danger' : '' }}">
             <a href="{{ route('pengeluaran') }}">
-              <i class="tim-icons icon-pin"></i>
-              <p>Pengeluaran</p>
+              <i class="tim-icons icon-paper borbder text-white"></i>
+             <p class="">Pengeluaran</p>
             </a>
           </li>
         </ul>
@@ -101,7 +98,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+            <a class="navbar-brand" href="javascript:void(0)">Sistem Keuangan Pribadi</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -121,8 +118,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
                   </p>
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li>
+                  {{-- <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li> --}}
                   <li class="nav-link"><a href="{{ route('logout') }}" class="nav-item dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

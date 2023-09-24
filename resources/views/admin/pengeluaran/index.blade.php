@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-sm" onclick="create()">
-                  Tambah Pengeluaran
+                <button type="button" class="btn btn-primary" onclick="create()">
+                  + Tambah Pengeluaran
                 </button>
             <div class="card ">
               <div class="card-header">

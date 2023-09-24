@@ -39,8 +39,7 @@ class PengeluaranController extends Controller
                 <form method="GET" action="' . route('editpengeluaran', $data->id) . '" style="display: inline;" class="form-edit">
                     ' . csrf_field() . '
                     <button type="submit" class="btn btn-info edit-btn btn-sm" data-id="' . $data->id . '">
-                        <i class="glyphicon glyphicon-trash icon-white"></i> 
-                        Edit
+                        <i class="tim-icons icon-pencil"></i>
                     </button>
                 </form>
                 
@@ -48,8 +47,7 @@ class PengeluaranController extends Controller
                     ' . csrf_field() . '
                     ' . method_field('DELETE') . '
                     <button type="submit" class="btn btn-danger delete-btn btn-sm" data-id="' . $data->id . '">
-                        <i class="glyphicon glyphicon-trash icon-white"></i> 
-                        Hapus
+                        <i class="tim-icons icon-trash-simple"></i>
                     </button>
                 </form>
                 ';
