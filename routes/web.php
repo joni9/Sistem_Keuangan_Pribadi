@@ -31,11 +31,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/store-pemasukan', [PemasukanController::class, 'store'])->name('storepemasukan');
     Route::get('/edit-pemasukan/{id}', [PemasukanController::class, 'edit'])->name('editpemasukan');
     Route::put('/update-pemasukan/{id}', [PemasukanController::class, 'update'])->name('updatepemasukan');
-    Route::delete('/delete-pemasukan/{id}', [PemasukanController::class, 'delete'])->name('deletepemasukan'); // Sesuaikan dengan URL yang sesuai dengan aplikasi Anda
+    Route::delete('/delete-pemasukan/{id}', [PemasukanController::class, 'delete'])->name('deletepemasukan');
 
 
     Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran');
     Route::get('/table-pengeluaran', [PengeluaranController::class, 'table_pengeluaran'])->name('table_pengeluaran');
+    Route::get('/create-pengeluaran', [PengeluaranController::class, 'create'])->name('createpengeluaran');
+    Route::post('/store-pengeluaran', [PengeluaranController::class, 'store'])->name('storepengeluaran');
+    Route::get('/edit-pengeluaran/{id}', [PengeluaranController::class, 'edit'])->name('editpengeluaran');
+    Route::put('/update-pengeluaran/{id}', [PengeluaranController::class, 'update'])->name('updatepengeluaran');
+    Route::delete('/delete-pengeluaran/{id}', [PengeluaranController::class, 'delete'])->name('deletepengeluaran');
 
     // Route::get('/profilmahasiswa', [ProfilController::class, 'index'])->name('profilmahasiswa');
 });

@@ -11,21 +11,11 @@
                   <table class="table tablesorter datatable responsive" id="table_keuangan">
                     <thead class=" text-primary">
                       <tr>
-                        <th>
-                          No
-                        </th>
-                        <th>
-                          Nominal
-                        </th>
-                        <th>
-                          Jenis
-                        </th>
-                        <th class="text-center">
-                          Keterangan
-                        </th>
-                        <th class="text-center">
-                          Aksi
-                        </th>
+                        <th>No</th>
+                        <th>Nominal</th>
+                        <th>Jenis</th>
+                        <th> Keterangan</th>
+                        <th>Tanggal</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -65,9 +55,8 @@
                     name: 'keterangan',
                 },
                 { 
-                    data: 'aksi', 
-                    name: 'aksi', 
-                    searchable: false,
+                    data: 'created_at', 
+                    name: 'created_at',
                 },
             ],
             lengthMenu: [[10, 25, 50, 100, 200, 500, 1000], [10, 25, 50, 100, 200, 500, 1000]],

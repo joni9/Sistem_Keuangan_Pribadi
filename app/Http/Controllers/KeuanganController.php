@@ -25,14 +25,13 @@ class KeuanganController extends Controller
                 static $i = 1;
                 return $i++;
             })
-            ->addColumn('aksi', function ($data) {
-                return '
-                <a class="btn btn-info" href="' . route('dashboard', $data->id) . '">
-                    <i class="glyphicon glyphicon-edit icon-white"></i> 
-                    Pilih
-                </a>';
+            ->addColumn('nominal', function ($data) {
+                return 'Rp ' . number_format($data->nominal, 0, ',', '.');
             })
-            ->rawColumns(['aksi'])
+
+            ->addColumn('created_at', function ($data) {
+                return $data->created_at->format('d-m-Y');
+            })
             ->make(true);
     }
 }

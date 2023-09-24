@@ -26,11 +26,19 @@ class PemasukanController extends Controller
                 static $i = 1;
                 return $i++;
             })
+            ->addColumn('nominal', function ($data) {
+                return 'Rp ' . number_format($data->nominal, 0, ',', '.');
+            })
+            ->addColumn('created_at', function ($data) {
+                return $data->created_at->format('d-m-Y');
+            })
+
+
             ->addColumn('aksi', function ($data) {
                 return '
                 <form method="GET" action="' . route('editpemasukan', $data->id) . '" style="display: inline;" class="form-edit">
                     ' . csrf_field() . '
-                    <button type="submit" class="btn btn-info edit-btn" data-id="' . $data->id . '">
+                    <button type="submit" class="btn btn-info edit-btn btn-sm" data-id="' . $data->id . '">
                         <i class="glyphicon glyphicon-trash icon-white"></i> 
                         Edit
                     </button>
@@ -39,7 +47,7 @@ class PemasukanController extends Controller
                 <form method="POST" action="' . route('deletepemasukan', $data->id) . '" style="display: inline;" class="form-delete">
                     ' . csrf_field() . '
                     ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-danger delete-btn" data-id="' . $data->id . '">
+                    <button type="submit" class="btn btn-danger delete-btn btn-sm" data-id="' . $data->id . '">
                         <i class="glyphicon glyphicon-trash icon-white"></i> 
                         Hapus
                     </button>
@@ -65,6 +73,7 @@ class PemasukanController extends Controller
             'id' => Str::uuid(),
             'name' => $request->input('name'),
             'nominal' => $request->input('nominal'),
+            'jenis' => $request->input('jenis'),
             'keterangan' => $request->input('keterangan'),
             'user_id' => auth()->id(),
         ];
@@ -94,6 +103,7 @@ class PemasukanController extends Controller
         // Update data keuangan dengan data baru dari form
         $keuangan->nominal = $request->nominal;
         $keuangan->keterangan = $request->keterangan;
+        $keuangan->created_at = $request->created_at;
         $keuangan->save();
     }
     public function delete($id)

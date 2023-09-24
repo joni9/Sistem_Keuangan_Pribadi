@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" onclick="create()">
+                <button type="button" class="btn btn-primary btn-sm" onclick="create()">
                   Tambah Pemasukan
                 </button>
             <div class="card ">
@@ -17,21 +17,12 @@
                   <table class="table tablesorter datatable responsive" id="table_pemasukan">
                     <thead class=" text-primary">
                       <tr>
-                        <th>
-                          No
-                        </th>
-                        <th>
-                          Nominal
-                        </th>
-                        <th>
-                          Jenis
-                        </th>
-                        <th class="text-center">
-                          Keterangan
-                        </th>
-                        <th class="text-center">
-                          Aksi
-                        </th>
+                        <th>No</th>
+                        <th>Nominal</th>
+                        <th>Jenis</th>
+                        <th> Keterangan</th>
+                        <th>Tanggal</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -90,6 +81,10 @@
                     name: 'keterangan',
                 },
                 { 
+                    data: 'created_at', 
+                    name: 'created_at',
+                },
+                { 
                     data: 'aksi', 
                     name: 'aksi', 
                     searchable: false,
@@ -140,99 +135,102 @@
         });
     }
 
-//edit data
-$(document).on('submit', '.form-edit', function(e) {
-    e.preventDefault();
+    //edit data
+    $(document).on('submit', '.form-edit', function(e) {
+        e.preventDefault();
 
-    var form = $(this);
-    var url = form.attr('action');
-    var method = form.attr('method');
-    $.ajax({
-        url: url,
-        method: method,
-        data: form.serialize(),
-        success: function(response) {
-            $('#NamaLabelModal').text('Edit Pemasukan');
-            $('#page').html(response);
-            $('#TambahPemasukanModal').modal('show');
-        },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
-        }
-    });
-});
-
-//update data
-$(document).on('submit', '.form-update', function(e) {
-    e.preventDefault();
-
-    var form = $(this);
-    var url = form.attr('action');
-    var method = form.attr('method');
-    var nominal = $("#nominal").val();
-    var keterangan = $("#keterangan").val();
-    $.ajax({
-        url: url,
-        method: method,
-         data: {
-              _token: '{{ csrf_token() }}',
-                nominal: nominal,
-                keterangan: keterangan,
+        var form = $(this);
+        var url = form.attr('action');
+        var method = form.attr('method');
+        $.ajax({
+            url: url,
+            method: method,
+            data: form.serialize(),
+            success: function(response) {
+                $('#NamaLabelModal').text('Edit Pemasukan');
+                $('#page').html(response);
+                $('#TambahPemasukanModal').modal('show');
             },
-        success: function(response) {
-            Swal.fire({
-                    title: 'Sukses',
-                    text: 'Data berhasil diupdate',
-                    icon: 'success',
-                    showConfirmButton: false, // Menghilangkan tombol "OK"
-                    timer: 1500 // Menampilkan pesan selama 2 detik
-                });
-                $(".btn-close").click();
-                reloadTable('#table_pemasukan');
-        },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
-        }
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
     });
-});
 
-$(document).on('submit', '.form-delete', function(e) {
-    e.preventDefault();
+    //update data
+    $(document).on('submit', '.form-update', function(e) {
+        e.preventDefault();
 
-    var form = $(this);
-    var url = form.attr('action');
-    var method = form.attr('method');
-
-    Swal.fire({
-        title: 'Konfirmasi',
-        text: 'Apakah Anda yakin ingin menghapus data ini?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: url,
-                method: method,
-                data: form.serialize(),
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Sukses',
-                        text: 'Data berhasil dihapus',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    reloadTable('#table_pemasukan');
+        var form = $(this);
+        var url = form.attr('action');
+        var method = form.attr('method');
+        var nominal = $("#nominal").val();
+        var keterangan = $("#keterangan").val();
+        var created_at = $("#created_at").val();
+        $.ajax({
+            url: url,
+            method: method,
+            data: {
+                  _token: '{{ csrf_token() }}',
+                    nominal: nominal,
+                    keterangan: keterangan,
+                    created_at: created_at,
                 },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
-        }
+            success: function(response) {
+                Swal.fire({
+                        title: 'Sukses',
+                        text: 'Data berhasil diupdate',
+                        icon: 'success',
+                        showConfirmButton: false, // Menghilangkan tombol "OK"
+                        timer: 1500 // Menampilkan pesan selama 2 detik
+                    });
+                    $(".btn-close").click();
+                    reloadTable('#table_pemasukan');
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
     });
-});
+
+    //delete data
+    $(document).on('submit', '.form-delete', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+        var method = form.attr('method');
+
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin menghapus data ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    method: method,
+                    data: form.serialize(),
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Sukses',
+                            text: 'Data berhasil dihapus',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        reloadTable('#table_pemasukan');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
 
 
     //fungsi reload
