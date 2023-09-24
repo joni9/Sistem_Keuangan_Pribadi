@@ -49,7 +49,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title fs-5 text-center" id="exampleModalLabel">Tambah Pemasukan</h3>
+        <h3 class="modal-title fs-5 text-center" id="NamaLabelModal"></h3>
         <div type="button" class="btn btn-secondary btn-sm btn-close"" data-bs-dismiss="modal">x</div>
       </div>
       <div class="modal-body">
@@ -103,41 +103,98 @@
     //untuk menampilkan modal halaman create
     function create(){
       $.get("{{ route('createpemasukan') }}", {}, function(data, status){
+        $("#NamaLabelModal").html('Tambah Pemasukan');
         $("#page").html(data);
         $("#TambahPemasukanModal").modal('show');
       });
     }
 
     //fungsi untuk menyimpan data create
-function store() {
-    var nominal = $("#nominal").val();
-    var jenis = $("#jenis").val();
-    var keterangan = $("#keterangan").val();
+    function store() {
+        var nominal = $("#nominal").val();
+        var jenis = $("#jenis").val();
+        var keterangan = $("#keterangan").val();
+        $.ajax({
+            type: "POST", // Menggunakan metode POST
+            url: "{{ route('storepemasukan') }}",
+            data: {
+              _token: '{{ csrf_token() }}',
+                nominal: nominal,
+                jenis: jenis,
+                keterangan: keterangan,
+            },
+            success: function (data) {
+                Swal.fire({
+                    title: 'Sukses',
+                    text: 'Data berhasil ditambahkan',
+                    icon: 'success',
+                    showConfirmButton: false, // Menghilangkan tombol "OK"
+                    timer: 1500 // Menampilkan pesan selama 2 detik
+                });
+                $(".btn-close").click();
+                reloadTable('#table_pemasukan');
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+//edit data
+$(document).on('submit', '.form-edit', function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var url = form.attr('action');
+    var method = form.attr('method');
     $.ajax({
-        type: "POST", // Menggunakan metode POST
-        url: "{{ route('storepemasukan') }}",
-        data: {
-          _token: '{{ csrf_token() }}',
-            nominal: nominal,
-            jenis: jenis,
-            keterangan: keterangan,
+        url: url,
+        method: method,
+        data: form.serialize(),
+        success: function(response) {
+            $('#NamaLabelModal').text('Edit Pemasukan');
+            $('#page').html(response);
+            $('#TambahPemasukanModal').modal('show');
         },
-        success: function (data) {
-            Swal.fire({
-                title: 'Sukses',
-                text: 'Data berhasil ditambahkan',
-                icon: 'success',
-                showConfirmButton: false, // Menghilangkan tombol "OK"
-                timer: 1500 // Menampilkan pesan selama 2 detik
-            });
-            $(".btn-close").click();
-            reloadTable('#table_pemasukan');
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
         }
     });
-}
+});
+
+//update data
+$(document).on('submit', '.form-update', function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var url = form.attr('action');
+    var method = form.attr('method');
+    var nominal = $("#nominal").val();
+    var keterangan = $("#keterangan").val();
+    $.ajax({
+        url: url,
+        method: method,
+         data: {
+              _token: '{{ csrf_token() }}',
+                nominal: nominal,
+                keterangan: keterangan,
+            },
+        success: function(response) {
+            Swal.fire({
+                    title: 'Sukses',
+                    text: 'Data berhasil diupdate',
+                    icon: 'success',
+                    showConfirmButton: false, // Menghilangkan tombol "OK"
+                    timer: 1500 // Menampilkan pesan selama 2 detik
+                });
+                $(".btn-close").click();
+                reloadTable('#table_pemasukan');
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+    });
+});
 
 $(document).on('submit', '.form-delete', function(e) {
     e.preventDefault();

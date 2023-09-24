@@ -1,0 +1,13 @@
+<form method="PUT" action="{{ route('updatepemasukan', $keuangan->id) }}" class="form-update">
+    @csrf
+    <div class="form-group">
+        <label for="nominal">Nominal</label>
+        <input type="number" min="1" name="nominal" id="nominal" class="form-control text-primary" placeholder="Masukkan Nominal Rupiah" value="{{ $keuangan->nominal }}">
+        <label for="jenis" class="mt-2">Jenis</label>
+        <input disabled name="labeljenis" id="labeljenis" class="form-control text-primary bg-white" value="Pemasukan">
+        <input type="hidden" name="jenis" id="jenis" value="pemasukan">
+        <label for="keterangan" class="mt-2">Keterangan</label>
+        <input type="text" name="keterangan" id="keterangan" class="form-control text-primary" placeholder="Keterangan" value="{{ $keuangan->keterangan }}">
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Update</button>
+</form>

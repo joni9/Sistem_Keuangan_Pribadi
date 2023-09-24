@@ -28,10 +28,13 @@ class PemasukanController extends Controller
             })
             ->addColumn('aksi', function ($data) {
                 return '
-                <a class="btn btn-info" href="' . route('dashboard', $data->id) . '">
-                    <i class="glyphicon glyphicon-edit icon-white"></i> 
-                    Edit
-                </a>
+                <form method="GET" action="' . route('editpemasukan', $data->id) . '" style="display: inline;" class="form-edit">
+                    ' . csrf_field() . '
+                    <button type="submit" class="btn btn-info edit-btn" data-id="' . $data->id . '">
+                        <i class="glyphicon glyphicon-trash icon-white"></i> 
+                        Edit
+                    </button>
+                </form>
                 
                 <form method="POST" action="' . route('deletepemasukan', $data->id) . '" style="display: inline;" class="form-delete">
                     ' . csrf_field() . '
@@ -67,6 +70,31 @@ class PemasukanController extends Controller
         ];
 
         Keuangan::create($data);
+    }
+    public function edit($id)
+    {
+        $keuangan = Keuangan::findOrFail($id);
+        return view('admin.pemasukan.edit', compact('keuangan'));
+    }
+    public function update(Request $request, $id)
+    {
+        // Validasi inputan jika diperlukan
+        $request->validate([
+            'nominal' => 'required|numeric',
+            'keterangan' => 'string',
+        ]);
+        // Cari data tahun berdasarkan $id
+        $keuangan = Keuangan::where('id', $id)->first();
+
+        if (!$keuangan) {
+            // Jika data tidak ditemukan, redirect dengan pesan error
+            return redirect()->back()->with(['error' => 'Data tidak ditemukan!']);
+        }
+
+        // Update data keuangan dengan data baru dari form
+        $keuangan->nominal = $request->nominal;
+        $keuangan->keterangan = $request->keterangan;
+        $keuangan->save();
     }
     public function delete($id)
     {

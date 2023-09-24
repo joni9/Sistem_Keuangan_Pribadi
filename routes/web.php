@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/table-pemasukan', [PemasukanController::class, 'table_pemasukan'])->name('table_pemasukan');
     Route::get('/create-pemasukan', [PemasukanController::class, 'create'])->name('createpemasukan');
     Route::post('/store-pemasukan', [PemasukanController::class, 'store'])->name('storepemasukan');
+    Route::get('/edit-pemasukan/{id}', [PemasukanController::class, 'edit'])->name('editpemasukan');
+    Route::put('/update-pemasukan/{id}', [PemasukanController::class, 'update'])->name('updatepemasukan');
     Route::delete('/delete-pemasukan/{id}', [PemasukanController::class, 'delete'])->name('deletepemasukan'); // Sesuaikan dengan URL yang sesuai dengan aplikasi Anda
 
 
