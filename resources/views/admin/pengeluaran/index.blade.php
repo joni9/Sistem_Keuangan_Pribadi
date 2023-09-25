@@ -157,6 +157,7 @@
                 });
                 $(".btn-close").click();
                 reloadTable('#table_pengeluaran');
+                show();
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
@@ -225,6 +226,7 @@
                     });
                     $(".btn-close").click();
                     reloadTable('#table_pengeluaran');
+                    show();
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -262,6 +264,7 @@
                             timer: 1500
                         });
                         reloadTable('#table_pengeluaran');
+                        show();
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);
