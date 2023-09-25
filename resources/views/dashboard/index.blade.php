@@ -89,16 +89,20 @@
 
         $('#start_date, #end_date').change(function () {
             reloadTable('#table_keuangan');
+            show();
         });
     });
 
-        //untuk menampilkan modal halaman create
-    function show(){
-      $.get("{{ route('showsaldo') }}", {}, function(data, status){
-        $("#show-info-saldo").html(data);
-      });
+    //untuk menampilkan modal halaman create
+    function show() {
+    var startDate = $("#start_date").val();
+    var endDate = $("#end_date").val();
+        $.get("{{ route('showsaldo') }}", { start_date: startDate, end_date: endDate }, function(data, status) {
+            $("#show-info-saldo").html(data);
+        });
     }
     show();
+
 
      //fungsi reload
     function reloadTable(id) {

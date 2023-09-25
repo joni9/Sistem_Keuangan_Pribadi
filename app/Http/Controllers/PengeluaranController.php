@@ -106,12 +106,13 @@ class PengeluaranController extends Controller
             ->whereYear('created_at', $year)
             ->sum('nominal');
 
-        if ($request->input('start_date') && $request->input('end_date')) {
-            // Mendapatkan tanggal awal dan tanggal akhir dari permintaan HTTP
-            $startDate = $request->input('start_date');
-            $endDate = $request->input('end_date');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        if ($startDate && $endDate) {
             // Menghitung total semua pengeluaran
-            $semuapengeluaran = Keuangan::where('jenis', 'keluaran')
+            $semuapengeluaran =
+                Keuangan::where('jenis', 'keluaran')
                 ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
                     $query->whereBetween('created_at', [$startDate, $endDate]);
                 })

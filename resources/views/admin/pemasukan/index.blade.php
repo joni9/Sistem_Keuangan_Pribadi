@@ -119,6 +119,7 @@
 
         $('#start_date, #end_date').change(function () {
             reloadTable('#table_pemasukan');
+            show();
         });
         
     });
@@ -163,11 +164,13 @@
         });
     }
 
-    //untuk menampilkan show
-    function show(){
-      $.get("{{ route('showpemasukan') }}", {}, function(data, status){
-        $("#show-info-pemasukan").html(data);
-      });
+        //untuk menampilkan modal halaman create
+    function show() {
+    var startDate = $("#start_date").val();
+    var endDate = $("#end_date").val();
+        $.get("{{ route('showpemasukan') }}", { start_date: startDate, end_date: endDate }, function(data, status) {
+            $("#show-info-pemasukan").html(data);
+        });
     }
     show();
     //edit data

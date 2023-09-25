@@ -120,6 +120,7 @@
 
         $('#start_date, #end_date').change(function () {
             reloadTable('#table_pengeluaran');
+            show();
         });
     });
 
@@ -164,10 +165,12 @@
     }
 
     //untuk menampilkan modal halaman create
-    function show(){
-      $.get("{{ route('showpengeluaran') }}", {}, function(data, status){
-        $("#show-info-pengeluaran").html(data);
-      });
+    function show() {
+    var startDate = $("#start_date").val();
+    var endDate = $("#end_date").val();
+        $.get("{{ route('showpengeluaran') }}", { start_date: startDate, end_date: endDate }, function(data, status) {
+            $("#show-info-pengeluaran").html(data);
+        });
     }
     show();
 
