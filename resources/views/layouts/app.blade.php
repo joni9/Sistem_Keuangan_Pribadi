@@ -61,7 +61,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.min.css
       <div class="sidebar-wrapper">
         <div class="logo">
           <a href="javascript:void(0)" class="simple-text logo-normal text-center">
-            Joni Evendi
+            {{ auth()->user()->name }}
           </a>
         </div>
         <ul class="nav">
