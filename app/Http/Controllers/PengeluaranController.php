@@ -110,6 +110,7 @@ class PengeluaranController extends Controller
         $endDate = $request->input('end_date');
 
         if ($startDate && $endDate) {
+            $endDate = date('Y-m-d', strtotime('+1 day', strtotime($endDate)));
             // Menghitung total semua pengeluaran
             $semuapengeluaran =
                 Keuangan::where('jenis', 'keluaran')
