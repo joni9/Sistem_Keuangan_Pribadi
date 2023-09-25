@@ -12,6 +12,26 @@
                 <h4 class="card-title"> Info Pengeluaran {{ $user->name }}</h4>
               </div>
 
+              <div id="show-info-pengeluaran">
+
+              </div>
+
+              <div class="row mx-2">
+                <div class="col-md-6 mt-4">
+                        <div class="form-group">
+                            <label>TANGGAL AWAL</label>
+                            <input type="date" id="start_date" name="start_date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <div class="form-group">
+                            <label>TANGGAL AKHIR</label>
+                            <input type="date" id="end_date" name="end_date" class="form-control">
+                        </div>
+                    </div>
+              </div>
+                
+
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table tablesorter datatable responsive" id="table_pengeluaran">
@@ -60,6 +80,10 @@
             processing: true,
             ajax: {
                 'url': "{{ route('table_pengeluaran') }}",
+                'data': function (d) {
+                    d.start_date = $('#start_date').val(); // ambil nilai tanggal awal
+                    d.end_date = $('#end_date').val(); // ambil nilai tanggal akhir
+                }
             },
             columns: [
                 {
@@ -92,6 +116,10 @@
             ],
             lengthMenu: [[10, 25, 50, 100, 200, 500, 1000], [10, 25, 50, 100, 200, 500, 1000]],
             
+        });
+
+        $('#start_date, #end_date').change(function () {
+            reloadTable('#table_pengeluaran');
         });
     });
 
@@ -134,6 +162,14 @@
             }
         });
     }
+
+    //untuk menampilkan modal halaman create
+    function show(){
+      $.get("{{ route('showpengeluaran') }}", {}, function(data, status){
+        $("#show-info-pengeluaran").html(data);
+      });
+    }
+    show();
 
     //edit data
     $(document).on('submit', '.form-edit', function(e) {

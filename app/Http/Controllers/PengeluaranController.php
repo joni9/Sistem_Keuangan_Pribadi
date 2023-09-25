@@ -15,10 +15,23 @@ class PengeluaranController extends Controller
         $user = Auth::user();
         return view('admin.pengeluaran.index', compact('user'));
     }
-    public function table_pengeluaran()
+    public function table_pengeluaran(request $request)
     {
         $user = Auth::user();
         $query = Keuangan::with('user')->where('jenis', 'keluaran')->where('user_id', $user->id);
+
+        //menyeleksi berdasarkan tanggal
+        if ($request->start_date && $request->end_date) {
+            // Mengubah format tanggal awal dan akhir sesuai dengan format yang diterima oleh database
+            $start_date = date('Y-m-d', strtotime($request->start_date));
+            $end_date = date('Y-m-d', strtotime($request->end_date));
+
+            // Menambahkan 1 hari pada tanggal akhir untuk mencakup seluruh rentang waktu
+            $end_date = date('Y-m-d', strtotime('+1 day', strtotime($end_date)));
+
+            // Menambahkan kondisi pencarian berdasarkan rentang tanggal pada kolom 'created_at'
+            $query = $query->whereBetween('created_at', [$start_date, $end_date]);
+        }
 
         return DataTables::of($query)
             ->addIndexColumn()
@@ -78,6 +91,37 @@ class PengeluaranController extends Controller
 
         Keuangan::create($data);
     }
+    public function show(Request $request)
+    {
+        //year and month
+        $year   = date('Y');
+        $month  = date('m');
+        //statistic revenue
+        $pengeluaranbulan = Keuangan::where('jenis', 'keluaran')
+            ->whereMonth('created_at', '=', $month)
+            ->whereYear('created_at', $year)
+            ->sum('nominal');
+
+        $pengeluarantahun = Keuangan::where('jenis', 'keluaran')
+            ->whereYear('created_at', $year)
+            ->sum('nominal');
+
+        if ($request->input('start_date') && $request->input('end_date')) {
+            // Mendapatkan tanggal awal dan tanggal akhir dari permintaan HTTP
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+            // Menghitung total semua pengeluaran
+            $semuapengeluaran = Keuangan::where('jenis', 'keluaran')
+                ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                    $query->whereBetween('created_at', [$startDate, $endDate]);
+                })
+                ->sum('nominal');
+        } else {
+            $semuapengeluaran = Keuangan::where('jenis', 'keluaran')->sum('nominal');
+        }
+        return view('admin.pengeluaran.show', compact('semuapengeluaran', 'pengeluaranbulan', 'pengeluarantahun'));
+    }
+
     public function edit($id)
     {
         $keuangan = Keuangan::findOrFail($id);
