@@ -33,7 +33,7 @@ class PengeluaranController extends Controller
             $query = $query->whereBetween('created_at', [$start_date, $end_date]);
         } else {
             $year   = date('Y');
-            $query = Keuangan::with('user')->where('jenis', 'keluaran')->where('user_id', $user->id)->whereYear('created_at', $year);
+            $query = Keuangan::with('user')->where('jenis', 'keluaran')->where('user_id', $user->id)->whereYear('created_at', $year)->latest('created_at');
         }
 
         return DataTables::of($query)
