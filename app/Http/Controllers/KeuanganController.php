@@ -30,6 +30,9 @@ class KeuanganController extends Controller
 
             // Menambahkan kondisi pencarian berdasarkan rentang tanggal pada kolom 'created_at'
             $query = $query->whereBetween('created_at', [$start_date, $end_date]);
+        } else {
+            $year   = date('Y');
+            $query = Keuangan::with('user')->where('user_id', $user->id)->whereYear('created_at', $year);
         }
 
         return DataTables::of($query)
