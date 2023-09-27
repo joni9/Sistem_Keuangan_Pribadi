@@ -135,9 +135,8 @@
 
     //fungsi untuk menyimpan data create
     function store() {
-            // Mendapatkan referensi ke tombol
+        // Mendapatkan referensi ke tombol
         var saveButton = document.getElementById('savebutton');
-
         // Nonaktifkan tombol
         saveButton.disabled = true;
 
