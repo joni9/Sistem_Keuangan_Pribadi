@@ -1,4 +1,4 @@
-<form method="PUT" action="{{ route('updatepemasukan', $keuangan->id) }}" class="form-update">
+<form method="PUT" action="{{ route('updatepengeluaran', $keuangan->id) }}" class="form-update">
     @csrf
     <div class="form-group">
         <label for="nominal">Nominal</label>

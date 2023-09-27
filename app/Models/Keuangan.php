@@ -17,6 +17,7 @@ class Keuangan extends Model
         'jenis',
         'keterangan',
         'user_id',
+        'created_at',
     ];
 
     public function user()

@@ -114,9 +114,9 @@ class PemasukanController extends Controller
             'nominal' => 'required|numeric',
             'keterangan' => 'string',
         ]);
-
+        $uuid = Str::uuid();
         $data = [
-            'id' => Str::uuid(),
+            'id' => $uuid,
             'name' => $request->input('name'),
             'nominal' => $request->input('nominal'),
             'jenis' => $request->input('jenis'),
@@ -125,6 +125,11 @@ class PemasukanController extends Controller
         ];
 
         Keuangan::create($data);
+        $keuangan = Keuangan::where('id', $uuid)->first();
+        if ($request->input('created_at')) {
+            $keuangan->created_at = $request->input('created_at');
+            $keuangan->save();
+        }
     }
     public function edit($id)
     {

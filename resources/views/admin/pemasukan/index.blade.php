@@ -135,9 +135,16 @@
 
     //fungsi untuk menyimpan data create
     function store() {
+            // Mendapatkan referensi ke tombol
+        var saveButton = document.getElementById('savebutton');
+
+        // Nonaktifkan tombol
+        saveButton.disabled = true;
+
         var nominal = $("#nominal").val();
         var jenis = $("#jenis").val();
         var keterangan = $("#keterangan").val();
+        var created_at = $("#created_at").val();
         $.ajax({
             type: "POST", // Menggunakan metode POST
             url: "{{ route('storepemasukan') }}",
@@ -146,6 +153,7 @@
                 nominal: nominal,
                 jenis: jenis,
                 keterangan: keterangan,
+                created_at: created_at,
             },
             success: function (data) {
                 Swal.fire({
