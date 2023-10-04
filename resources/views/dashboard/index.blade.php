@@ -7,6 +7,10 @@
                 <h4 class="card-title"> Info Semua Keuangan {{ $user->name }}</h4>
               </div>
 
+              <div class="p-6 m-20 rounded bg-white">
+                    {!! $chart->container() !!}
+              </div>
+              <br><br>
               <div id="show-info-saldo">
 
               </div>
@@ -111,4 +115,7 @@
         table.ajax.reload();
     }
 </script>
+<script src="{{ $chart->cdn() }}"></script>
+
+{{ $chart->script() }}
 @endsection

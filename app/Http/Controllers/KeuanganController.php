@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MonthlyKeuaganChart;
 use App\Models\Keuangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,11 +10,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class KeuanganController extends Controller
 {
-    public function index()
+    public function index(MonthlyKeuaganChart $monthlyKeuaganChart)
     {
         $user = Auth::user();
-        return view('dashboard.index', compact('user'));
+        $chart = $monthlyKeuaganChart->build();
+        return view('dashboard.index', compact('user', 'chart'));
     }
+
     public function table_keuangan(request $request)
     {
         $user = Auth::user();
