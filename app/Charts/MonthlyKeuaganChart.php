@@ -16,7 +16,9 @@ class MonthlyKeuaganChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $keuangan = Keuangan::groupBy('jenis', 'id')->get();
+        $year   = date('Y');
+        $month  = date('m');
+        $keuangan = Keuangan::groupBy('jenis', 'id')->whereMonth('created_at', '=', $month)->whereYear('created_at', $year)->get();
         $data = [
             $keuangan->where('jenis', 'pemasukan')->sum('nominal'),
             $keuangan->where('jenis', 'keluaran')->sum('nominal'),
@@ -27,7 +29,7 @@ class MonthlyKeuaganChart
         ];
         $colors = ['#1D8CF8', '#FD5D93'];
         return $this->chart->pieChart()
-            ->setTitle('Data Keuangan')
+            ->setTitle('Data Keuangan bulan ini')
             ->setSubtitle('Joni Evendi')
             ->addData($data)
             ->setLabels($label)
