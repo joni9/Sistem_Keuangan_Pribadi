@@ -166,8 +166,16 @@
                 reloadTable('#table_pengeluaran');
                 show();
             },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
+            error: function (xhr) {
+                var errors = xhr.responseJSON.errors;
+                var errorMessages = [];
+
+                for (var key in errors) {
+                    errorMessages.push(errors[key][0]);
+                }
+                saveButton.disabled = false;
+                // Tampilkan pesan kesalahan dalam modal atau di tempat yang sesuai
+                alert(errorMessages.join("\n"));
             }
         });
     }
@@ -236,7 +244,18 @@
                     show();
             },
             error: function(xhr, status, error) {
-                console.log(xhr.responseText);
+                var errorResponse = JSON.parse(xhr.responseText);
+                var errorMessages = [];
+
+                if (errorResponse.errors) {
+                    for (var key in errorResponse.errors) {
+                        errorMessages.push(errorResponse.errors[key][0]);
+                    }
+                } else {
+                    errorMessages.push('Terjadi kesalahan saat memproses permintaan');
+                }
+                // Menampilkan pesan kesalahan menggunakan alert
+                alert(errorMessages.join('\n'));
             }
         });
     });
