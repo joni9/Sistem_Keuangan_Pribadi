@@ -155,6 +155,9 @@ class PengeluaranController extends Controller
         // Update data keuangan dengan data baru dari form
         $keuangan->nominal = $request->nominal;
         $keuangan->keterangan = $request->keterangan;
+        if ($request->created_at) {
+            $keuangan->created_at = $request->created_at;
+        }
         $keuangan->save();
     }
     public function delete($id)
